@@ -34,7 +34,7 @@ app.use("/images", express.static(__dirname + "/uploads/images"));
 console.log(process.env.MONGOLAB_URI);
 
 mongoose
-  .connect('mongodb://sergio-nizar:sergio-nizar-123@ds241012.mlab.com:41012/cocktail-app-mvc', { useNewUrlParser: true })
+  .connect(process.env.MONGOLAB_URI, { useNewUrlParser: true })
   .then(console.log("Successful connection to database"))
   .catch(error => {
     console.log(`The following error occurred: ${error.message}`);
