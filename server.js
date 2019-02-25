@@ -6,7 +6,8 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 
-const URI = require("dotenv").config();
+const MONGO_URI = require("dotenv").config();
+console.log(typeof MONGO_URI.parsed.MONGO_URI)
 
 
 
@@ -36,7 +37,7 @@ app.use("/images", express.static(__dirname + "/uploads/images"));
 
 
 mongoose
-  .connect(`${URI}, { useNewUrlParser: true })
+  .connect(MONGO_URI.parsed.MONGO_URI, { useNewUrlParser: true })
   .then(console.log("Successful connection to database"))
   .catch(error => {
     console.log(`The following error occurred: ${error.message}`);
