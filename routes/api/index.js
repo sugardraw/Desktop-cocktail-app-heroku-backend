@@ -23,14 +23,14 @@ const storage = multer.diskStorage({
 const imageUpload = multer({ storage: storage });
 // console.log('+*******',imageUpload);
 
-router.get("/", (req, res) => {
+router.get("/", cors(),(req, res) => {
 
   res.send({
     init: "start"
   });
 });
 
-router.get("/api", (req, res) => {
+router.get("/api",cors(), (req, res) => {
   res.send({
     api: "Cocktail App",
     authors: "Sergio and Nizar"
@@ -38,15 +38,15 @@ router.get("/api", (req, res) => {
 });
 
 //check all routes
-router.get("/api/cocktails/list", cocktailController.listAll);
-router.get("/uploads/images/:id", cocktailController.listAllImages);
+router.get("/api/cocktails/list", cors(),cocktailController.listAll);
+router.get("/uploads/images/:id", cors(),cocktailController.listAllImages);
 
 /***
  *  app routes
  */
 
-router.get("/api/cocktails/get-matches", cocktailController.listMatchesOnly);
-router.get("/api/ingredients/all", ingredientController.listAll);
+router.get("/api/cocktails/get-matches", cors(),cocktailController.listMatchesOnly);
+router.get("/api/ingredients/all", cors(),ingredientController.listAll);
 
 router.post(
   "/api/cocktails/save",
@@ -55,13 +55,13 @@ router.post(
 );
 
 // User Route
-router.post("/api/users/signup", userController.saveNewUser);
+router.post("/api/users/signup", cors(),userController.saveNewUser);
 
 //
 
-router.post("/api/users/signin", userController.validateUser);
+router.post("/api/users/signin",cors(), userController.validateUser);
 
 // check tokens
-router.post("/api/users/check-token", userController.checkToken);
+router.post("/api/users/check-token",cors(), userController.checkToken);
 
 module.exports = router;
