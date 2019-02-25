@@ -19,7 +19,23 @@ const port = process.env.PORT || 3001;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
-app.use(cors({ credentials: true, origin: "https://radiant-harbor-87919.herokuapp.com" }));
+
+var whitelist = ["https://radiant-harbor-87919.herokuapp.com", 'http://localhost:3000']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true
+}
+ 
+
+
+
+app.use(cors(corsOptions));
 app.use(cookieParser());
 
 //set an static route to show the images
